@@ -1,0 +1,20 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\BankAccount\Domain\Account\Account">
+        <id name="id" type="uuid"/>
+        <field name="currency" enum-type="App\SharedKernel\Domain\ValueObject\Currency" length="20"/>
+        <embedded name="balance" class="App\BankAccount\Domain\Account\ValueObject\Balance"/>
+        <embedded name="feePercent" class="App\BankAccount\Domain\Account\ValueObject\FeePercent"/>
+        <field name="createdAt" type="datetime_immutable"/>
+        <field name="updatedAt" type="datetime_immutable"/>
+        <one-to-many field="transactions"
+                     target-entity="\App\BankAccount\Domain\Account\Transaction\Transaction"
+                     mapped-by="account">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+    </entity>
+</doctrine-mapping>

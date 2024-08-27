@@ -1,0 +1,14 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\BankAccount\Domain\Account\Transaction\Transaction" table="account_transaction">
+        <id name="id" type="uuid"/>
+        <many-to-one field="account" target-entity="App\BankAccount\Domain\Account\Account"/>
+        <field name="type" enum-type="App\BankAccount\Domain\Account\Transaction\ValueObject\Type"/>
+        <embedded name="amount" class="App\BankAccount\Domain\Account\Transaction\ValueObject\Amount"/>
+        <field name="currency" enum-type="App\SharedKernel\Domain\ValueObject\Currency" length="20"/>
+        <embedded name="fee" class="App\BankAccount\Domain\Account\Transaction\ValueObject\Fee"/>
+        <field name="createdAt" type="datetime_immutable"/>
+    </entity>
+</doctrine-mapping>
