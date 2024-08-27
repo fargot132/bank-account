@@ -12,6 +12,7 @@ use App\BankAccount\Domain\Account\Transaction\ValueObject\Id;
 use App\BankAccount\Domain\Account\Transaction\ValueObject\Type;
 use App\BankAccount\Domain\Account\ValueObject\FeePercent;
 use App\SharedKernel\Domain\ValueObject\Currency;
+use App\SharedKernel\Infrastructure\Uuid\UuidService;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -20,7 +21,7 @@ class TransactionTest extends TestCase
 {
     public function testCreate(): void
     {
-        $id = new Id('123e4567-e89b-12d3-a456-426614174000');
+        $id = new Id((new UuidService())->generate());
         $type = Type::CREDIT;
         $amount = new Amount(1000);
         $currency = Currency::EUR;
@@ -41,7 +42,7 @@ class TransactionTest extends TestCase
 
     public function testSetAccount(): void
     {
-        $id = new Id('123e4567-e89b-12d3-a456-426614174000');
+        $id = new Id((new UuidService())->generate());
         $type = Type::CREDIT;
         $amount = new Amount(1000);
         $currency = Currency::EUR;
@@ -58,7 +59,7 @@ class TransactionTest extends TestCase
 
     public function testCalculateFeeAndGetTotalAmount(): void
     {
-        $id = new Id('123e4567-e89b-12d3-a456-426614174000');
+        $id = new Id((new UuidService())->generate());
         $type = Type::CREDIT;
         $amount = new Amount(1000);
         $currency = Currency::USD;
